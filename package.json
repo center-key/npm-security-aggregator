@@ -1,0 +1,91 @@
+{
+   "name": "npm-security-aggregator",
+   "version": "0.0.0",
+   "description": "View audit reports for a published npm package",
+   "license": "MIT",
+   "type": "module",
+   "module": "docs/app.min.js",
+   "browser": "docs/index.html",
+   "style": "docs/style.min.css",
+   "types": "docs/app.d.ts",
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/center-key/npm-security-aggregator.git"
+   },
+   "homepage": "https://npm-security-aggregator.js.org",
+   "bugs": "https://github.com/center-key/npm-security-aggregator/issues",
+   "docs": "https://npm-security-aggregator.js.org",
+   "author": "Center Key (https://centerkey.com)",
+   "keywords": [
+      "audit",
+      "npm",
+      "package",
+      "security",
+      "vulnerability"
+   ],
+   "jshintConfig": {
+      "esversion": 11,
+      "strict": "implied",
+      "eqeqeq": true,
+      "undef": true,
+      "unused": true,
+      "varstmt": true,
+      "browser": true,
+      "node": true,
+      "mocha": true,
+      "globals": {
+         "dna": false,
+         "fetchJson": false,
+         "libX": false,
+         "prettyPrintJson": false
+      }
+   },
+   "runScriptsConfig": {
+      "clean": [
+         "rimraf build docs"
+      ],
+      "lint": [
+         "jshint . --exclude-path .gitignore"
+      ],
+      "build": [
+         "copy-folder  src/assets                    build/assets",
+         "lessc        src/style.less                build/style.css",
+         "uglifyjs     src/app.js           --output build/app.min.js",
+         "replacer     src/index.html                build",
+         "lightningcss build/style.css --output-file build/style.min.css --minify --bundle"
+      ],
+      "publish": [
+         "copy-folder     build/assets              docs/assets",
+         "add-dist-header build/app.min.js          docs",
+         "add-dist-header build/style.min.css       docs",
+         "copy-file       build/index.html --folder docs"
+      ]
+   },
+   "scripts": {
+      "pretest": "run-scripts clean lint build publish",
+      "test": "mocha spec",
+      "validate": "html-validator docs"
+   },
+   "dependencies": {
+      "@fortawesome/fontawesome-free": "~7.2",
+      "dna-dom": "~3.3",
+      "fetch-json": "~3.5",
+      "pretty-print-json": "~3.0",
+      "web-ignition": "~2.5"
+   },
+   "devDependencies": {
+      "add-dist-header": "~1.6",
+      "assert-deep-strict-equal": "~1.2",
+      "copy-file-util": "~1.3",
+      "copy-folder-util": "~1.2",
+      "jshint": "~2.13",
+      "less": "~4.6",
+      "lightningcss-cli": "~1.32",
+      "mocha": "~11.7",
+      "replacer-util": "~1.6",
+      "rimraf": "~6.1",
+      "run-scripts-util": "~1.3",
+      "uglify-js": "~3.19",
+      "w3c-html-validator": "~2.2"
+   }
+}
