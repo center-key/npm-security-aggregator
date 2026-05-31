@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang=en>
+<!-- - - - - - - - - - - - - - - - - - - - - -->
+<!-- npm Security Aggregator ~~ MIT License  -->
+<!-- - - - - - - - - - - - - - - - - - - - - -->
+<head>
+   <meta charset=utf-8>
+   <meta name=viewport                   content="width=device-width, initial-scale=1, maximum-scale=1">
+   <meta name=robots                     content="index, follow">
+   <meta name=description                content="npm Security Aggregator -- View audit reports for a published npm package">
+   <meta name=apple-mobile-web-app-title content="Security">
+   <meta property=og:title               content="npm Security Aggregator">
+   <meta property=og:description         content="View audit reports for a published npm package">
+   <meta property=og:type                content="website">
+   <meta property=og:image               content="https://centerkey.com/graphics/center-key-logo-card.png">
+   <meta property=og:image:alt           content="Logo">
+   <title>npm Security Aggregator &bull; View audit reports for a published npm package</title>
+   <link rel=icon             href=https://centerkey.com/graphics/bookmark-icon.png>
+   <link rel=preconnect       href=https://fonts.googleapis.com>
+   <link rel=preconnect       href=https://fonts.gstatic.com crossorigin>
+   <link rel=stylesheet       href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@{{package.dependencies.-fortawesome-fontawesome-free|version}}/css/all.min.css>
+   <link rel=stylesheet       href=https://cdn.jsdelivr.net/npm/dna-dom@{{package.dependencies.dna-dom|version}}/dist/dna-dom.min.css>
+   <link rel=stylesheet       href=https://cdn.jsdelivr.net/npm/web-ignition@{{package.dependencies.web-ignition|version}}/dist/reset.min.css>
+   <link rel=stylesheet       href=https://cdn.jsdelivr.net/npm/pretty-print-json@{{package.dependencies.pretty-print-json|version}}/dist/css/pretty-print-json.prefers.min.css>
+   <link rel=stylesheet       href={{webRoot}}/style.min.css>
+   <script defer src=https://cdn.jsdelivr.net/npm/dna-dom@{{package.dependencies.dna-dom|version}}/dist/dna-dom.min.js></script>
+   <script defer src=https://cdn.jsdelivr.net/npm/web-ignition@{{package.dependencies.web-ignition|version}}/dist/lib-x.min.js></script>
+   <script defer src=https://cdn.jsdelivr.net/npm/pretty-print-json@{{package.dependencies.pretty-print-json|version}}/dist/pretty-print-json.min.js></script>
+   <script defer src=https://cdn.jsdelivr.net/npm/fetch-json@{{package.dependencies.fetch-json|version}}/dist/fetch-json.min.js></script>
+   <script defer src={{webRoot}}/app.min.js></script>
+</head>
+<body>
+
+<header>
+   <figure>🛡️</figure>
+   <h1>npm Security Aggregator</h1>
+   <h2>View audit reports for a published npm package</h2>
+   <a id=fork-me href=https://github.com/center-key/npm-security-aggregator>Fork me on GitHub</a>
+</header>
+
+<main>
+   <section>
+      <h2>Input</h2>
+      <label>
+         <span>npm Package:</span>
+         <input type=text data-on-key-up=app.enableLookUp data-on-enter-key=app.lookUpPkg
+            placeholder="Enter npm package name" spellcheck=false autofocus>
+      </label>
+      <span class=error-message>&nbsp;</span>
+      <p>
+         <button data-on-click=app.lookUpPkg disabled>Look Up Package</button>
+      </p>
+   </section>
+   <section>
+      <h2>Output</h2>
+      <figure>
+         <figcaption>&nbsp;</figcaption>
+         <pre class=json-container></pre>
+      </figure>
+      <h3>View Reports</h3>
+      <nav class=external-site>
+         <button id=report-button class=dna-template disabled>
+            <img src=# data-attr-src=~~icon~~ alt=~~name~~><span>~~name~~</span>
+         </button>
+      </nav>
+   </section>
+</main>
+
+<footer>
+   <div>
+      <p><b>npm-security-aggregator</b><br>MIT License</p>
+      <p><a href=https://github.com/center-key/npm-security-aggregator><i data-brand=github-alt></i></a></p>
+      <p><a href=https://centerkey.com><img src=https://centerkey.com/graphics/center-key-icon.svg alt=logo></a></p>
+   </div>
+</footer>
+
+</body>
+</html>
