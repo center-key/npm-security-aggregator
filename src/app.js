@@ -8,21 +8,6 @@ const app = {
       { name: 'NPMScan', url: 'https://npmscan.com/package/[PKG-NAME]' },
       ],
 
-   elem: null,
-
-   createElemMap() {
-      const component = globalThis.document.querySelector('main');
-      app.elem = {
-         nameInput:      component.querySelector('input[type=text]'),
-         errorMessage:   component.querySelector('span.error-message'),
-         lookUpButton:   component.querySelector('p >button'),
-         registryFigure: component.querySelector('figure'),
-         registryTitle:  component.querySelector('figure >figcaption'),
-         registryData:   component.querySelector('figure >pre'),
-         reportButtons:  component.querySelector('nav:has(>button)'),
-         };
-      },
-
    fetchPkg(name) {
       const pkgName =     libX.str.toKebab(name);
       const registryUrl = `https://registry.npmjs.org/${pkgName}/latest`;
@@ -54,6 +39,7 @@ const app = {
       fetchJson.enableLogger();
       if (pkgName)
          fetchJson.get(registryUrl).then(handlePkgData);
+      app.elem.nameInput.focus();
       },
 
    enableLookUp() {
@@ -65,13 +51,27 @@ const app = {
       app.fetchPkg(app.elem.nameInput.value);
       },
 
+   elem: null,
+
+   createElemMap() {
+      const component = globalThis.document.querySelector('main');
+      app.elem = {
+         nameInput:      component.querySelector('input[type=text]'),
+         errorMessage:   component.querySelector('span.error-message'),
+         lookUpButton:   component.querySelector('p >button'),
+         registryFigure: component.querySelector('figure'),
+         registryTitle:  component.querySelector('figure >figcaption'),
+         registryData:   component.querySelector('figure >pre'),
+         reportButtons:  component.querySelector('nav:has(>button)'),
+         };
+      },
+
    setup() {
       app.createElemMap();
-      const paramValue = new URLSearchParams(globalThis.location.search).get('package');
-      const folderName = libX.url.getFolderName(globalThis.document.referrer);
-      const addIcon =    (info) => info.icon = `assets/icon-${info.name.toLowerCase()}.png`;
+      const addIcon = (info) => info.icon = `assets/icon-${info.name.toLowerCase()}.png`;
       dna.clone('report-button', app.reportInfo, { transform: addIcon });
-      app.fetchPkg(paramValue ?? folderName);
+      const params = new URLSearchParams(globalThis.location.search);
+      app.fetchPkg(params.get('package'));
       },
    };
 
