@@ -12,12 +12,12 @@ const app = {
       const pkgName =     libX.str.toKebab(name);
       const registryUrl = `https://registry.npmjs.org/${pkgName}/latest`;
       app.elem.nameInput.value = pkgName;
-      const updateReportButton = (info, i) => {
-         const reportButton = app.elem.reportButtons.children[i];
+      const updateReportButton = (info, index) => {
+         const reportButton = app.elem.reportButtons.children[index];
          const reportUrl =    info.url.replace('[PKG-NAME]', pkgName);
-         reportButton.disabled =       false;
-         reportButton.dataset.href =   reportUrl;
-         reportButton.title =          reportUrl;
+         reportButton.disabled =     false;
+         reportButton.dataset.href = reportUrl;
+         reportButton.title =        reportUrl;
          };
       const showPkg = (data) => {
          app.elem.registryTitle.textContent = pkgName;
@@ -25,6 +25,9 @@ const app = {
          app.elem.registryData.innerHTML =    prettyPrintJson.toHtml(data);
          dna.ui.slideFadeIn(app.elem.registryFigure);
          app.reportInfo.forEach(updateReportButton);
+         const url = new URL(globalThis.location.href);
+         url.searchParams.set('package', pkgName);
+         dna.clone('aggregator-link', { url: url.href }, { empty: true });
          };
       const handlePkgData = (data) => {
          globalThis.console.info(data);
